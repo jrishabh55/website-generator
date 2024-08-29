@@ -18,6 +18,7 @@ export default function SplitHero({
             width={550}
             height={550}
             alt="Hero"
+            path="^images.hero"
             className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
           />
           <div className="flex flex-col justify-center space-y-4">

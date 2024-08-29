@@ -1,8 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Hero } from "@/validations";
-import Image from "next/image";
 import EditableImage from "@/components/EditableImage";
 import EditableText from "@/components/EditableText";
+import { Button } from "@/components/ui/button";
+import { Hero } from "@/validations";
 
 export default function BackgroundImageHero({
   heading,
@@ -19,6 +18,7 @@ export default function BackgroundImageHero({
           width={1600}
           height={800}
           alt="Background"
+          path="^images.hero"
           className="absolute inset-0 object-cover w-full h-full"
         />
         <div className="relative bg-gray-950/60">

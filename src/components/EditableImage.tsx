@@ -6,6 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useParams } from "next/navigation";
+import { updateWebsite } from "@/lib/api";
 
 interface HoverImageProps {
   src: string;
@@ -14,6 +16,7 @@ interface HoverImageProps {
   height: number;
   className?: string;
   editOnTop?: boolean;
+  path?: string;
 }
 
 export default function EditableImage({
@@ -22,8 +25,10 @@ export default function EditableImage({
   width,
   height,
   className,
+  path,
   editOnTop,
 }: HoverImageProps) {
+  const { id } = useParams();
   const [isHovering, setIsHovering] = useState(false);
   const [baseImage, setBaseImage] = useState(src);
 
@@ -32,6 +37,9 @@ export default function EditableImage({
       .then((r) => r.json())
       .then(async (res) => {
         setBaseImage(res.image);
+        if (path) {
+          await updateWebsite(id.toString(), { [path]: res.image });
+        }
       });
   };
 

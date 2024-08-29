@@ -10,7 +10,13 @@ import {
 import { Service } from "@/validations";
 import EditableText from "@/components/EditableText";
 
-const ServiceCard = ({ service }: { service: Service }) => {
+const ServiceCard = ({
+  service,
+  index,
+}: {
+  service: Service;
+  index: number;
+}) => {
   return (
     <Card className="transition-all hover:shadow-lg">
       <CardHeader>
@@ -19,13 +25,17 @@ const ServiceCard = ({ service }: { service: Service }) => {
             {service.icon}
           </div>
           <CardTitle>
-            <EditableText>{service.name}</EditableText>
+            <EditableText path={`services.${index}.name`}>
+              {service.name}
+            </EditableText>
           </CardTitle>
         </div>
       </CardHeader>
       <CardContent>
         <CardDescription>
-          <EditableText>{service.description}</EditableText>
+          <EditableText path={`services.${index}.description`}>
+            {service.description}
+          </EditableText>
         </CardDescription>
       </CardContent>
     </Card>
@@ -40,7 +50,7 @@ export default function Service3({ services = [] }: { services: Service[] }) {
       <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
       <div className="max-w-5xl container grid grid-cols-2 gap-5">
         {services.map((service, index) => (
-          <ServiceCard key={index} service={service} />
+          <ServiceCard key={index} service={service} index={index} />
         ))}
       </div>
     </div>

@@ -41,12 +41,16 @@ const Service2 = ({ services = [] }: { services: Service[] }) => {
                       {service.icon}
                     </div>
                     <CardTitle>
-                      <EditableText>{service.name}</EditableText>
+                      <EditableText path={`services.${index}.name`}>
+                        {service.name}
+                      </EditableText>
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription>
-                      <EditableText>{service.description}</EditableText>
+                      <EditableText path={`services.${index}.description`}>
+                        {service.description}
+                      </EditableText>
                     </CardDescription>
                   </CardContent>
                 </Card>
