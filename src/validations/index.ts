@@ -16,7 +16,7 @@ export type Hero = z.infer<typeof HeroSchema>;
 export const ServiceSchema = z.object({
   name: z.string(),
   description: z.string(),
-  // icon: z.any(),
+  icon: z.any().transform(() => ""),
 });
 export type Service = z.infer<typeof ServiceSchema>;
 

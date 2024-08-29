@@ -1,15 +1,17 @@
-import "./globals.css"
-import { Inter as FontSans } from "next/font/google"
+import "./globals.css";
+import { Inter as FontSans } from "next/font/google";
 
-import { cn } from "@/lib/utils"
-import type { ReactNode } from "react"
+import { cn } from "@/lib/utils";
+import type { ReactNode } from "react";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
-})
+});
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -22,5 +24,5 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         {children}
       </body>
     </html>
-  )
+  );
 }

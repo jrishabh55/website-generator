@@ -17,12 +17,12 @@ type LayoutProps = {
 };
 
 const Layout: FC<LayoutProps> = ({ sections, meta, images }) => {
-  const Hero = useMemo(() => getHeroComp(sections.service), [sections.hero]);
+  const Hero = useMemo(() => getHeroComp(sections.hero), [sections.hero]);
   const Service = useMemo(
-    () => getServicesComp(sections.hero),
-    [sections.hero]
+    () => getServicesComp(sections.service),
+    [sections.service]
   );
-  const Faq = useMemo(() => getFaqComp(sections.hero), [sections.hero]);
+  const Faq = useMemo(() => getFaqComp(sections.faq), [sections.faq]);
 
   if (!Hero) {
     return null;

@@ -22,6 +22,7 @@ export const getInitialLayout = async (
       sections: {
         hero: getRandomNumber(2),
         service: getRandomNumber(2),
+        faq: getRandomNumber(2),
       },
       meta: sectionData,
       images: {

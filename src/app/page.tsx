@@ -8,7 +8,7 @@ import { useOptimistic } from "react";
 
 export default function Home() {
   const [state, action, isPending] = useFormState(
-    (ps, formData: FormData) => {
+    (_: unknown, formData: FormData) => {
       return getInitialLayout({
         name: formData.get("name") as string,
         keywords: formData.get("keywords") as string,
