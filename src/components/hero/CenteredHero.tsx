@@ -13,11 +13,14 @@ export default function CenteredHero({
         <div className="flex flex-col items-center space-y-4 text-center">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-              <EditableText>{heading}</EditableText>
+              <EditableText path="hero.heading">{heading}</EditableText>
             </h1>
-            <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-              <EditableText>{shortDescription}</EditableText>
-            </p>
+            <EditableText
+              path="hero.shortDescription"
+              className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400"
+            >
+              {shortDescription}
+            </EditableText>
           </div>
           <div className="space-x-4">
             {cta.map((text, index) => (

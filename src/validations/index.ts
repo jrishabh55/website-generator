@@ -25,6 +25,7 @@ export const claudeSPAResponse = z.object({
   cta: z.array(z.string()),
   services: z.array(ServiceSchema),
   faq: z.array(FaqSchema),
+  website: z.any(),
 });
 
 export type ClaudeSPAResponse = z.infer<typeof claudeSPAResponse>;

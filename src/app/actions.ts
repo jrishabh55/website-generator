@@ -1,10 +1,12 @@
 "use server";
-import Anthropic from "@anthropic-ai/sdk";
-import { getRandomNumber, wait } from "@/lib/utils";
+import { createWebsite, UserModal, WebsiteRes } from "@/lib/db.server";
+import { getRandomNumber, Jsonify } from "@/lib/utils";
 import { claudeSPAResponse } from "@/validations";
+import Anthropic from "@anthropic-ai/sdk";
 import { TextBlock } from "@anthropic-ai/sdk/resources/messages.mjs";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createApi } from "unsplash-js";
-import { services } from "@/components/services";
 
 type InputArgs = {
   name: string;
@@ -12,37 +14,41 @@ type InputArgs = {
 };
 
 export const getInitialLayout = async (
-  { name, keywords } = {} as InputArgs
+  { name, keywords, username } = {} as InputArgs & { username: string }
 ) => {
-  console.log({ name, keywords });
   const sectionData = await initialAPICall({ name, keywords });
 
-  const responseData = {
-    data: {
-      sections: {
-        hero: getRandomNumber(2),
-        service: getRandomNumber(2),
-        faq: getRandomNumber(2),
-      },
-      meta: sectionData,
-      images: {
-        hero: await getImage(keywords),
-        faqs: await Promise.all(
-          sectionData.faq.map(async (faq) => await getImage(faq.question))
-        ),
-        services: await Promise.all(
-          sectionData.services.map(
-            async (service) => await getImage(service.name)
-          )
-        ),
-      },
+  const responseData: WebsiteRes = {
+    sections: {
+      hero: getRandomNumber(2),
+      service: getRandomNumber(2),
+      faq: getRandomNumber(2),
+    },
+    meta: sectionData,
+    images: {
+      hero: await getImage(keywords),
+      faqs: await Promise.all(
+        sectionData.faq.map(async (faq) => await getImage(faq.question))
+      ),
+      services: await Promise.all(
+        sectionData.services.map(
+          async (service) => await getImage(service.name)
+        )
+      ),
     },
   };
 
-  return responseData;
+  const website = await createWebsite(username, {
+    name,
+    keywords,
+    layout: responseData,
+  });
+
+  revalidatePath(`/preview/${website._id}`);
+  redirect(`/preview/${website._id}`);
 };
 
-export type LayoutData = Awaited<ReturnType<typeof getInitialLayout>>;
+export type LayoutData = WebsiteRes;
 
 export const initialAPICall = async ({ name, keywords }: InputArgs) => {
   const anthropic = new Anthropic();
@@ -95,4 +101,17 @@ export const getImages = async (keywords: string, count = 1) => {
   }
 
   return [responses.urls.full];
+};
+
+export const getWebsite = async (id: string, username?: string) => {
+  const websites = await UserModal.findOne(
+    {
+      "websites._id": id,
+      ...(username ? { username } : {}),
+    },
+    {
+      "websites.$": 1,
+    }
+  );
+  return Jsonify(websites?.websites[0].toObject());
 };

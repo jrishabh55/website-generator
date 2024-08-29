@@ -1,40 +1,31 @@
 "use client";
 import { UserForm } from "@/components/form";
-import Layout from "@/components/Layout";
-import { Skeleton } from "@/components/ui/skeleton";
+import CreateUserForm from "@/components/UserForm";
+import { User } from "@/validations/user";
+import { useState } from "react";
 import { useFormState } from "react-dom";
 import { getInitialLayout, LayoutData } from "./actions";
-import { useOptimistic } from "react";
 
 export default function Home() {
+  const [user, setUser] = useState(undefined as unknown as User);
+
   const [state, action, isPending] = useFormState(
     (_: unknown, formData: FormData) => {
       return getInitialLayout({
         name: formData.get("name") as string,
         keywords: formData.get("keywords") as string,
+        username: formData.get("username") as string,
       });
     },
     {
-      data: {
-        sections: {},
-      },
+      sections: {},
     } as LayoutData
   );
 
   return (
-    <main className="flex gap-2 flex-col h-screen">
-      <header className="flex justify-center shadow-md py-2">
-        <UserForm action={action} />
-      </header>
-      <main className="flex-grow flex justify-center flex-col items-center">
-        {!isPending && (
-          <Layout
-            sections={state.data.sections}
-            meta={state.data.meta}
-            images={state.data.images}
-          />
-        )}
-      </main>
+    <main className="h-screen p-4 justify-center items-center flex">
+      {!user && <CreateUserForm setUser={setUser} />}
+      {!!user && <UserForm action={action} username={user.username} />}
     </main>
   );
 }

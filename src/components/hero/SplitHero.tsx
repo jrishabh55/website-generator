@@ -23,10 +23,12 @@ export default function SplitHero({
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                <EditableText>{heading}</EditableText>
+                <EditableText path="hero.heading">{heading}</EditableText>
               </h1>
               <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                <EditableText>{shortDescription}</EditableText>
+                <EditableText path="hero.shortDescription">
+                  {shortDescription}
+                </EditableText>
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">

@@ -26,7 +26,6 @@ export const POST = async (request: Request) => {
       },
     ],
   });
-  console.log("🚀 ~ POST ~ msg:", msg);
 
   return jsonResponse({
     text: (msg.content[0] as TextBlock).text,

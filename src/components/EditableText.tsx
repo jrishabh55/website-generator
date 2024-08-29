@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   HoverCard,
@@ -12,21 +14,26 @@ import {
 import { Check, Copy, Edit, RefreshCcwIcon, Trash } from "lucide-react";
 import { useState } from "react";
 import { Textarea } from "./ui/textarea";
-import { generateText } from "@/lib/api";
+import { generateText, updateWebsite } from "@/lib/api";
+import { useParams } from "next/navigation";
 
 interface EditableTextProps {
   onEdit?: (newText: string) => void;
   onCopy?: () => void;
   onDelete?: () => void;
   children: string;
+  path: string;
+  className?: string;
 }
 
 export default function EditableText({
   children,
   onEdit,
-  onCopy,
+  path,
+  className,
   onDelete,
 }: EditableTextProps) {
+  const { id } = useParams();
   const [isHovered, setIsHovered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [tempText, setTempText] = useState(children);
@@ -38,13 +45,15 @@ export default function EditableText({
 
   const handleSubmitEdit = () => {
     setEditedText(tempText);
-    onEdit?.(editedText);
+    onEdit?.(tempText);
     setIsEditing(false);
+    if (path) {
+      updateWebsite(id.toString(), { [path]: tempText });
+    }
   };
 
   const handleRegen = () => {
     generateText(editedText).then(({ text }) => {
-      console.log("🚀 ~ generateText ~ text:", text);
       setTempText(text);
     });
   };
@@ -64,7 +73,7 @@ export default function EditableText({
           }}
           className={`cursor-pointer p-0 m-0 ${
             isHovered ? "bg-accent/20" : ""
-          }`}
+          }${className ? ` ${className}` : ""}`}
         >
           {editedText}
         </span>

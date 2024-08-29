@@ -25,10 +25,12 @@ export default function BackgroundImageHero({
           <div className="container px-4 md:px-6 flex flex-col items-center justify-center min-h-[40rem] text-center">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-white">
-                <EditableText>{heading}</EditableText>
+                <EditableText path="hero.heading">{heading}</EditableText>
               </h1>
               <p className="mx-auto max-w-[600px] text-gray-200 md:text-xl">
-                <EditableText>{shortDescription}</EditableText>
+                <EditableText path="hero.shortDescription">
+                  {shortDescription}
+                </EditableText>
               </p>
             </div>
             <div className="space-x-4 mt-6">

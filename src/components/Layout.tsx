@@ -7,7 +7,7 @@ import { getFaqComp } from "./faqSection";
 import { Skeleton } from "./ui/skeleton";
 
 type LayoutProps = {
-  sections: LayoutData["data"]["sections"];
+  sections: LayoutData["sections"];
   meta: ClaudeSPAResponse;
   images: {
     hero: string;
