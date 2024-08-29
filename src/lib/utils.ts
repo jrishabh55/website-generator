@@ -16,4 +16,5 @@ export const getRandomItem = <T>(items: T[]): T => {
 export const wait = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-export const Jsonify = (data: any) => JSON.parse(JSON.stringify(data));
+export const Jsonify = <T extends object>(data: T) =>
+  JSON.parse(JSON.stringify(data)) as T;

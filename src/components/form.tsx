@@ -9,11 +9,14 @@ export const UserForm: FC<
   FormHTMLAttributes<HTMLFormElement> & { username?: string }
 > = ({ username }) => {
   return (
-    <form action={createNewWebsite} className="flex gap-2">
-      <Input placeholder="Product Name" name="name" />
-      <Input placeholder="Keywords (Comma Sep)" name="keywords" />
-      {!!username && <Input value={username} name="username" type="hidden" />}
-      <Button type="submit">Create page</Button>
-    </form>
+    <div className="flex flex-col gap-2">
+      <h2 className="text-center text-lg">Create Website</h2>
+      <form action={createNewWebsite} className="flex flex-col gap-2 w-96">
+        <Input placeholder="Product Name" name="name" />
+        <Input placeholder="Keywords (Comma Sep)" name="keywords" />
+        {!!username && <Input value={username} name="username" type="hidden" />}
+        <Button type="submit">Create page</Button>
+      </form>
+    </div>
   );
 };

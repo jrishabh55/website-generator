@@ -121,5 +121,10 @@ export const getWebsite = async (id: string, username?: string) => {
       "websites.$": 1,
     }
   );
-  return Jsonify(websites?.websites[0].toObject());
+  return Jsonify(websites?.websites[0].toObject()!);
+};
+
+export const getWebsites = async (username: string) => {
+  const user = await UserModal.findOne({ username }, { websites: 1 });
+  return user?.websites?.map((website) => Jsonify(website.toObject()!)) ?? [];
 };
