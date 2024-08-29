@@ -13,6 +13,14 @@ type InputArgs = {
   keywords: string;
 };
 
+export const createNewWebsite = (formData: FormData) => {
+  return getInitialLayout({
+    name: formData.get("name") as string,
+    keywords: formData.get("keywords") as string,
+    username: formData.get("username") as string,
+  });
+};
+
 export const getInitialLayout = async (
   { name, keywords, username } = {} as InputArgs & { username: string }
 ) => {
