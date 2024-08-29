@@ -85,5 +85,5 @@ export const updateWebsite = async (
     (website) => website._id.toString() === id
   );
 
-  return Jsonify(website);
+  return Jsonify(website ?? {});
 };
