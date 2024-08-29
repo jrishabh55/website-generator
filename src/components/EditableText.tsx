@@ -102,14 +102,14 @@ export default function EditableText({
               </div>
             </PopoverContent>
           </Popover>
-          <Button variant="ghost" size="icon-sm" onClick={onCopy}>
+          {/* <Button variant="ghost" size="icon-sm" onClick={onCopy}>
             <Copy className="h-4 w-4" />
             <span className="sr-only">Copy</span>
           </Button>
           <Button variant="ghost" size="icon-sm" onClick={onDelete}>
             <Trash className="h-4 w-4" />
             <span className="sr-only">Delete</span>
-          </Button>
+          </Button> */}
         </div>
       </HoverCardContent>
     </HoverCard>
